@@ -12,7 +12,7 @@ resource "aws_cloudfront_origin_access_identity" "OAI" {
 module "frontend" {
   source = "./modules/frontend"
 
-	OAI_iam_arn = aws_cloudfront_origin_access_identity.OAI.iam_arn
+  OAI_iam_arn = aws_cloudfront_origin_access_identity.OAI.iam_arn
 }
 
 resource "aws_s3_bucket" "files_bucket" {
@@ -20,10 +20,10 @@ resource "aws_s3_bucket" "files_bucket" {
 }
 
 module "api" {
-	source = "./modules/backend"
+  source = "./modules/backend"
 
-	files_bucket_arn = aws_s3_bucket.files_bucket.arn
-	files_bucket_path = "files"
+  files_bucket_arn  = aws_s3_bucket.files_bucket.arn
+  files_bucket_path = "files"
 }
 
 # lambda@edge
@@ -105,7 +105,7 @@ resource "aws_cloudfront_distribution" "distribution" {
     origin_id   = "files_bucket"
   }
 
-  enabled = true
+  enabled             = true
   default_root_object = "index.html"
 
   default_cache_behavior {
@@ -123,7 +123,7 @@ resource "aws_cloudfront_distribution" "distribution" {
         forward = "all"
       }
     }
-		viewer_protocol_policy = "redirect-to-https"
+    viewer_protocol_policy = "redirect-to-https"
   }
 
   ordered_cache_behavior {
@@ -142,15 +142,15 @@ resource "aws_cloudfront_distribution" "distribution" {
         forward = "all"
       }
     }
-		viewer_protocol_policy = "https-only"
+    viewer_protocol_policy = "https-only"
 
-		lambda_function_association {
+    lambda_function_association {
       event_type = "origin-request"
       lambda_arn = aws_lambda_function.lambda_edge.qualified_arn
     }
   }
 
-	ordered_cache_behavior {
+  ordered_cache_behavior {
     path_pattern     = "/files/*"
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cached_methods   = ["GET", "HEAD"]
@@ -165,14 +165,14 @@ resource "aws_cloudfront_distribution" "distribution" {
       cookies {
         forward = "none"
       }
-		}
-		viewer_protocol_policy = "https-only"
+    }
+    viewer_protocol_policy = "https-only"
 
-		lambda_function_association {
+    lambda_function_association {
       event_type = "origin-request"
       lambda_arn = aws_lambda_function.lambda_edge.qualified_arn
     }
-	}
+  }
 
   restrictions {
     geo_restriction {
@@ -186,5 +186,5 @@ resource "aws_cloudfront_distribution" "distribution" {
 }
 
 output "domain_name" {
-	value = aws_cloudfront_distribution.distribution.domain_name
+  value = aws_cloudfront_distribution.distribution.domain_name
 }

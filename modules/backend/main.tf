@@ -26,7 +26,7 @@ resource "aws_lambda_function" "signer_lambda" {
   role    = aws_iam_role.lambda_exec.arn
   environment {
     variables = {
-      BUCKET = data.aws_arn.files_bucket.resource
+      BUCKET    = data.aws_arn.files_bucket.resource
       PATH_PART = var.files_bucket_path
     }
   }
