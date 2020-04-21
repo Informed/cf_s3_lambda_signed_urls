@@ -123,7 +123,7 @@ resource "aws_cloudfront_distribution" "distribution" {
         forward = "all"
       }
     }
-		viewer_protocol_policy = "https-only"
+		viewer_protocol_policy = "redirect-to-https"
   }
 
   ordered_cache_behavior {

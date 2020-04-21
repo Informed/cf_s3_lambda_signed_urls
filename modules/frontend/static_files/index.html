@@ -9,14 +9,14 @@
 		</style>
 	</head>
 	<body>
-		<h1>What is this site</h1>
+		<h1>A demonstration site with static files, Lambda, and signed URLs hosted on the same domain</h1>
 		<p>This is a demonstration site where static files, a Lambda-based API, and a private bucket are all hosted on a single domain</p>
 		<p>You can open the devtools to see that no other domain is involved, even for file uploading and signed URLs</p>
 		<h2>Use this input field to upload to the private bucket</h2>
 		<p>This uses S3 POST signed URLs which uploads objects to a private S3 bucket</p>
 		<input id="post" type="file"/>
 		<h2>Here are the images already uploaded to the bucket<h2>
-		<p>These images use signed URLs to show</p>
+		<p>These images use signed URLs</p>
 		<div id="images"></div>
 	</body>
 </html>
