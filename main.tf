@@ -124,6 +124,7 @@ resource "aws_cloudfront_distribution" "distribution" {
       }
     }
     viewer_protocol_policy = "redirect-to-https"
+		compress = true
   }
 
   ordered_cache_behavior {
@@ -143,6 +144,7 @@ resource "aws_cloudfront_distribution" "distribution" {
       }
     }
     viewer_protocol_policy = "https-only"
+		compress = true
 
     lambda_function_association {
       event_type = "origin-request"
@@ -167,6 +169,7 @@ resource "aws_cloudfront_distribution" "distribution" {
       }
     }
     viewer_protocol_policy = "https-only"
+		compress = true
 
     lambda_function_association {
       event_type = "origin-request"
@@ -183,6 +186,7 @@ resource "aws_cloudfront_distribution" "distribution" {
   viewer_certificate {
     cloudfront_default_certificate = true
   }
+	is_ipv6_enabled = true
 }
 
 output "domain_name" {

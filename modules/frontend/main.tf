@@ -5,7 +5,7 @@ resource "aws_s3_bucket" "frontend_bucket" {
 locals {
   mime_type_mappings = {
     html = "text/html",
-    js   = "text/javacript",
+    js   = "text/javascript",
     css  = "text/css"
   }
 }
